@@ -10,30 +10,8 @@
 </head>
 <body class="wrapper">
     <main class="wrapper_main">
-        <header class="header_main">
-            <div class="header_top">
-                <div class="container header_container">
-                    <div class="header_intro">
-                        <a class="header_logo" href="index.html">
-                            PlaylistShare
-                        </a>
-                        <p class="header_version"> Versão 0.1</p>
-                    </div>
-
-                    <div class="header_menu">
-                        <a class="header_menu_item" href="login.html">
-                            Login
-                        </a>
-                        <a class="header_menu_item" href="conta.html">
-                            Conta
-                        </a>
-                        <a class="header_menu_item" href="favoritos.html">
-                            Favoritos
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </header>
+        <!-- views/partials/navbar.ejs -->
+        <%- include ("../partials/navbar") %>
         
         <div class="user">
             <h2>Informações da conta:</h2>

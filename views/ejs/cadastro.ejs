@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta name="description" content="Página de cadastro do PlaylistShare" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/cadastro.css">
     <title>PlaylistShare</title>
@@ -12,61 +13,49 @@
 
 <body>
     <div>
-        <header>
-            <div class="header_top">
-                <div class="container header_container">
-                    <div class="header_intro">
-                        <a class="header_logo" href="index.html">
-                            PlaylistShare
-                        </a>
-                        <p class="header_version"> Versão 0.1</p>
-                    </div>
-
-                    <div class="header_menu">
-                        <a class="header_menu_item" href="login.html">
-                            Login
-                        </a>
-                        <a class="header_menu_item" href="conta.html">
-                            Conta
-                        </a>
-                        <a class="header_menu_item" href="favoritos.html">
-                            Favoritos
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </header>
-
+        <!-- views/partials/navbar.ejs -->
+        <%- include ("../partials/navbar") %>
+        <!-- views/partials/msg.ejs -->
+        <%- include ("../partials/msg") %>
+        
+        <!-- mensagens de erro do formulario-->>
+        <%if(typeof erros == "undefined"){%>
+         <% } else { %>
+            <% erros.forEach(function(erros) { %>
+                <div class = "alert-error"><%= erros.texto %></div>
+            <% }); %>
+        <%}%>
+        
         <main class="w-100 flex-center">
             <div class="cadastro-box">
                 <h2 class="text-center w-100">Cadastro</h2>
-                <form action="/rota" method="">
+                <form action="/v1/cadastro" method="POST">
                     <div class="flex-justify-between my-2">
                         <div class="w-50 px-2">
                             <label class="fs-5">Nome de usuário:</label>
-                            <input class="text-input w-100 fs-6 my-2" placeholder="ex: nome.sobrenome" />
+                            <input name="username" class="text-input w-100 fs-6 my-2" placeholder="username" required/>
                         </div>
                         <div class="w-50 px-2">
                             <label class="fs-5">Email:</label>
-                            <input class="text-input w-100 fs-6 my-2" placeholder="email@exemplo.com" />
+                            <input name="email" class="text-input w-100 fs-6 my-2" placeholder="email@exemplo.com" required/>
                         </div>
                     </div>
                     <div class="w-100 px-2 my-2">
                         <label class="fs-5">Nome completo:</label>
-                        <input class="text-input w-100 fs-6 my-2" placeholder="Nome Completo" />
+                        <input name="nome" class="text-input w-100 fs-6 my-2" placeholder="Nome Completo" required/>
                     </div>
                     <div class="flex-justify-between my-2">
                         <div class="w-50 px-2">
                             <label class="fs-5">Senha:</label>
-                            <input class="text-input w-100 fs-6 my-2" type="password" />
+                            <input name="password" class="text-input w-100 fs-6 my-2" type="password" required/>
                         </div>
                         <div class="w-50 px-2">
                             <label class="fs-5">Confirmar senha:</label>
-                            <input class="text-input w-100 fs-6 my-2" type="password" />
+                            <input name="passwordconfirm" class="text-input w-100 fs-6 my-2" type="password" required/>
                         </div>
                     </div>
                     <div class="w-100 px-2 my-2">
-                        <input class="w-100 primary-btn fs-5" type="button" value="Cadastrar-se">
+                        <button class="w-100 primary-btn fs-5" type="submit">Cadastrar-se</button>
                     </div>
                 </form>
                 <div class="flex-justify-around mt-3">

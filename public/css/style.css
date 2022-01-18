@@ -334,3 +334,49 @@ h3 {
     overflow-x: auto;
     border-radius: 10px;
 }
+
+.alert-success {
+    z-index: 3;
+    position: relative;
+    top: 80px;
+    right: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px;
+    background-color: #11b669;
+    text-align: center;
+    color: white;
+    margin-bottom: 15px;
+    opacity: 0;
+    animation: fade 10s linear;
+}
+
+.alert-success:empty {
+    display: none;
+}
+
+
+.alert-error {
+    z-index: 3;
+    position: relative;
+    top: 80px;
+    right: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px;
+    background-color: #c52d22;
+    text-align: center;
+    color: white;
+    margin-bottom: 15px;
+    opacity: 0;
+    animation: fade 10s linear;
+}
+
+.alert-error:empty {
+    display: none;
+}
+
+@keyframes fade {
+    100% { opacity: 0 }
+    0% { opacity: 1 }
+}
