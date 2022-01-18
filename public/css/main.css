@@ -138,6 +138,11 @@ h3 {
     padding: 0.5rem;
 }
 
+.primary-btn:hover {
+    opacity: 0.60;
+    cursor: pointer;
+}
+
 .text-input {
     background-color: var(--main-white-text-color);
     border: 0.2rem solid var(--main-primary-color);

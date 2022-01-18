@@ -27,3 +27,5 @@ const Usuario = database.define('usuarios', {
 
 Usuario.sync();
 //Usuario.sync({force: true}); -> Força um cascade drop table
+
+module.exports = Usuario;
