@@ -1,0 +1,14 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 54321,
+            "driver": "PostgreSQL",
+            "name": "playlistsahre",
+            "database": "playlistshare",
+            "username": "admin",
+            "password": "admin"
+        }
+    ]
+}

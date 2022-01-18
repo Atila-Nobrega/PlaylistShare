@@ -1,0 +1,71 @@
+@import url("./main.css");
+
+.cadastro-box {
+    width: 700px;
+    padding: 2rem;
+    color: var(--main-white-text-color);
+    border-radius: 1rem;
+    background-color: var(--main-primary-bg-color);
+    box-shadow: 0 0 1rem var(--main-primary-color);
+}
+
+.of-auto {
+    overflow: scroll;
+    overflow-x: hidden;
+    scrollbar-color: #6969dd #e0e0e0;
+    scrollbar-width: thin;
+}
+
+.h-15 {
+    max-height: 15rem;
+}
+
+.fc-black {
+    color: var(--main-black-text-color);
+}
+
+.grey_border {
+    border-style: solid;
+    border-width: 4px;
+    border-color: dimgrey;
+}
+
+.list_block {
+    padding-left: 8px;
+    padding-right: 8px;
+    background-color: #535353;
+}
+
+
+.playlist_block_cd {
+    display: flex;
+    background-color: #1db954;
+    padding-top: 20px;
+    padding-bottom: 18px;
+    margin-top: 50px;
+    width: 100%;
+    box-shadow: 8px 8px 5px;
+    overflow-x: hidden;
+    border-radius: 10px;
+    align-items: center;
+    gap: 10px;
+
+}
+
+.album_icon_cadastro {
+    margin-left: 25px;
+    margin-right: 20px;
+    width: 80px;
+    height: 80px;
+    align-self: center;
+}
+
+.primary-btn:hover {
+    opacity: 0.5
+}
+
+.playlist_block_cd:hover {
+    filter: none;
+    opacity: 0.6;
+    cursor: pointer;
+}
