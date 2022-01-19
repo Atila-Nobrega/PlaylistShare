@@ -6,6 +6,10 @@
     <div class = "alert-error"><%= error_msg %></div>
 <% } %>
 
+<% if(success) { %>
+    <div class = "alert-success"><%=success%></div>
+<% } %>
+
 <% if(error) { %>
-    <div class = "alert-error"><%= error %></div>
+    <div class = "alert-error"><%=error%></div>
 <% } %>

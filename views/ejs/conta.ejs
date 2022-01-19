@@ -19,15 +19,15 @@
             <h2>Informações da conta:</h2>
             <div class="usernameinfo">
                 <h3>Usuário:</h3>
-                <h3 id=username> </h3>
+                <h3 id=username> <%=user.username%> </h3>
             </div>
             <div class="emailinfo">
                 <h3>Email:</h3>
-                <h3 id=useremail> </h3>
+                <h3 id=useremail> <%=user.email%> </h3>
             </div>
             <div class="dateinfo">
                 <h3>Data de criação:</h3>
-                <h3 id=userdate> </h3>
+                <h3 id=userdate> <%=user.createdAt%> </h3>
             </div>
             <button type="button" class="account_button">Mudar Senha</button>
             <button type="button" class="account_button">Deletar Conta</button>
@@ -68,23 +68,11 @@
         </div>
     </main>
     <script>
-        var field = document.getElementById('username');
-        var usernameexemplo = "MaicolaBr";
-        var username = document.createTextNode(usernameexemplo);
+        //field = document.getElementById('userdate');
+        //var userdateexemplo = user.createdAt;
+        //var userdate = document.createTextNode(userdateexemplo);
     
-        field.appendChild(username);
-    
-        field = document.getElementById('useremail');
-        var useremailexemplo = "maicolabrbr2@gmail.com";
-        var useremail = document.createTextNode(useremailexemplo);
-    
-        field.appendChild(useremail);
-    
-        field = document.getElementById('userdate');
-        var userdateexemplo = "15/08/2021";
-        var userdate = document.createTextNode(userdateexemplo);
-    
-        field.appendChild(userdate);
+        //field.appendChild(userdate);
     </script>
 </body>
 </html>

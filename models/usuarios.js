@@ -1,4 +1,3 @@
-const { INTEGER } = require('sequelize');
 const Seq = require('sequelize');
 const database = require('./db.js');
 
@@ -21,8 +20,8 @@ const Usuario = database.define('usuarios', {
         allowNull: false
     },
     eAdmin: {
-        type: INTEGER,
-        default: 0
+        type: Seq.INTEGER,
+        defaultValue: 0
     },
     password: {
         type: Seq.STRING,

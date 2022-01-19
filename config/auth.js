@@ -21,15 +21,15 @@ module.exports = function(passport) {
     }))
 
     passport.serializeUser((usuario, done) => {
-        done(null, usuario.id)
+        done(null, usuario)
     })
 
-    passport.deserializeUser((id, done) => {
-        Usuario.findByPk(id).then((usuario) => {
-            done(null, usuario.id)
+    passport.deserializeUser((serialusuario, done) => {
+        Usuario.findByPk(serialusuario.id).then((usuario) => {
+            done(null, usuario)
         }).catch((erro) => {
-            req.flash("error_msg", "Houve um erro com o login")
-            res.redirect("/v1/cadastro")
+            console.log(erro)
+            done(err, null, { message: 'Erro na tentativa de login com servidor desconectado' });
         });
     })
 }
