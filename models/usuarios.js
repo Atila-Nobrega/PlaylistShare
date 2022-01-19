@@ -1,3 +1,4 @@
+const { INTEGER } = require('sequelize');
 const Seq = require('sequelize');
 const database = require('./db.js');
 
@@ -19,13 +20,14 @@ const Usuario = database.define('usuarios', {
         type: Seq.STRING(100),
         allowNull: false
     },
+    eAdmin: {
+        type: INTEGER,
+        default: 0
+    },
     password: {
-        type: Seq.STRING(30),
+        type: Seq.STRING,
         allowNull: false
     }
 });
-
-Usuario.sync();
-//Usuario.sync({force: true}); -> Força um cascade drop table
 
 module.exports = Usuario;
