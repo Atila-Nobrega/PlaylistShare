@@ -17,10 +17,13 @@ app.use(session({
 app.use(passport.initialize())
 app.use(passport.session())
 app.use(flash());
+
+//---------------------------------------------------------
 //Middleware:
 app.use((req, res, next) => {
     res.locals.success_msg = req.flash("success_msg")
     res.locals.error_msg = req.flash("error_msg")
+    res.locals.success = req.flash("success")
     res.locals.error = req.flash("error")
     res.locals.user = req.user || null;
     next()
@@ -36,10 +39,11 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 //Verifica as tabelas do banco de dados, cria elas se não existirem.
 (async () => {
-    const database = require('./models/usuarios.js');
- 
+    const Usuario = require('./models/usuarios.js');
+    const Playlist = require('./models/playlists.js');
     try {
-        const resultado = await database.sync();
+        await Usuario.sync();
+        await Playlist.sync();
         console.log("Database Iniciada!");
     } catch (error) {
         console.log(error);
@@ -48,9 +52,14 @@ app.use(bodyParser.urlencoded({extended: true}));
 //-------------------------------------------------------------------
 
 
+
+
 //Rotas:
 app.use('/v1', v1);
 
+app.get('/', function(req, res) {
+    res.redirect("/v1/home")
+})
 
 
 app.listen(port, function() {

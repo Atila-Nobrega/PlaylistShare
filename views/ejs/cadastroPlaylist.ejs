@@ -21,7 +21,7 @@
         <main class="w-100 flex-center">
             <div class="cadastro-box">
                 <h2 class="text-center w-100">Cadastrar Playlists</h2>
-                <form action="/create_playlist.php">
+                <form action="/cadastrarplaylist" method="POST">
                     <div class="flex-justify-between my-2">
                         <div class="w-50 px-2">
                             <label class="fs-5">Aplicativo:</label>
@@ -34,11 +34,11 @@
                         </div>
                         <div class="w-50 px-2">
                             <label class="fs-5">Usuário:</label>
-                            <input class="text-input w-100 fs-6 my-2" placeholder="marcolabr" />
+                            <input id="userid" class="text-input w-100 fs-6 my-2" placeholder="id do usuário" />
                         </div>
                     </div>
                     <div class="w-100 px-2 my-2">
-                        <input class="w-100 primary-btn fs-5" type="button" value="Buscar" onClick="getPlaylists()">
+                        <button class="w-100 primary-btn fs-5" type="button" onClick="listarPlaylists()">Buscar</button>
                     </div>
                     <div class="w-100 px-2 my-2">
                         <label class="fs-5">Playlists:</label>
@@ -48,13 +48,22 @@
                     </div>
                 
                     <div class="w-100 px-2 my-2">
-                        <input class="w-100 primary-btn fs-5" type="button" value="Playlistar">
+                        <button class="w-100 primary-btn fs-5" type="submit">Cadastrar</button>
                     </div>
                 </form>
             </div>
         </main>
     </div>
-    <script>  
+    <script> 
+
+        async function listarPlaylists() {
+            userid = document.getElementById("userid").value
+            app = document.getElementById("app").value
+            
+            if(app == "spotify") {
+                
+            }
+        }
     
         function getPlaylists() {
             for (var i = 0; i < 10; i++) {
@@ -71,7 +80,7 @@
         }
         
         
-        </script>
+    </script>
 </body>
 
 </html>

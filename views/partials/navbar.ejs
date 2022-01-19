@@ -10,9 +10,18 @@
             </div>
 
             <div class="header_menu">
-                <a class="header_menu_item" href="login">
-                    Login
-                </a>
+                <% if(!user) { %>
+                    <a class="header_menu_item" href="login">
+                        Login
+                    </a>
+                <% } else {%>
+                    <a class="header_menu_item" href="cadastroPlaylist">
+                        Playlistar
+                    </a>
+                    <a class="header_menu_item" href="logout">
+                        Sair
+                    </a>
+                <% }%>
                 <a class="header_menu_item" href="conta">
                     Conta
                 </a>
