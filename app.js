@@ -29,10 +29,9 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-//Verifica as tabelas do banco de dados, cria elas se não existirem!
+//Verifica as tabelas do banco de dados, cria elas se não existirem.
 (async () => {
-    const database = require('./models/db.js');
-    const Produto = require('./models/usuarios.js');
+    const database = require('./models/usuarios.js');
  
     try {
         const resultado = await database.sync();
