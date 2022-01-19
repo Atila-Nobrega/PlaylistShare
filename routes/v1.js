@@ -4,6 +4,7 @@ const Seq = require('sequelize');
 const Usuario = require('../models/usuarios');
 const bcrypt = require('bcryptjs');
 const { redirect } = require('express/lib/response');
+const passport = require('passport')
 
 router.get("/home", function(req, res) {
     res.render('ejs/home');
@@ -89,12 +90,20 @@ router.post('/cadastro', async function(req, res) {
             req.flash("error_msg", "Houve um erro interno com a database")
             res.redirect("/v1/cadastro")
         });
-
     }
-
-    //username, email, nome, password, passwordconfirm
-
 });
+
+router.get("/login", async function(req, res) {
+    res.render("ejs/login")
+});
+
+router.post("/login", function(req, res, next) {
+    passport.authenticate("local", {
+        successRedirect: "/v1/home",
+        failureRedirect: "/v1/login",
+        failureFlash: true
+    })(req, res, next)
+})
 
 
 //--------------
