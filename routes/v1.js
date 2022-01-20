@@ -8,7 +8,8 @@ const { redirect } = require('express/lib/response');
 const passport = require('passport');
 const {eAdmin} = require("../helpers/eAdmin")
 const {eUser} = require("../helpers/eUser")
-const request = require('request')
+const request = require('request');
+const { user } = require('pg/lib/defaults');
 
 router.get("/home", function(req, res) {
     res.render('ejs/home');
@@ -81,7 +82,7 @@ router.post('/cadastro', async function(req, res) {
 
                         novoUsuario.save().then(() => {
                             req.flash("success_msg", "Usuario Cadastrado com sucesso")
-                            res.redirect("/v1/home")
+                            res.redirect("/v1/login")
                         }).catch((erro) => {
                             console.log(erro)
                             req.flash("error_msg", "Houve um erro ao salvar o usuário, erro no registro do DB")
@@ -127,6 +128,56 @@ router.get('/conta', eUser, function(req,res) {
 router.get('/cadastroplaylist', eUser, function(req, res) {
     res.render("ejs/cadastroPlaylist")
 });
+
+router.post("/cadastrarplaylist", eUser, function(req, res) {
+    if(typeof(req.body.playlistGroup) == 'undefined') {
+        req.flash("error_msg", "Selecione uma playlist para inserir!")
+        res.redirect("/v1/cadastroplaylist")
+        return;
+    } else if(Array.isArray(req.body.playlistGroup)) {
+        req.body.playlistGroup.forEach(function saveplaylists(data) {
+            playlist = data.split(",");
+            var novaPlaylist = Playlist.build({
+                appid: playlist[0],
+                totaltracks: playlist[2],
+                collaborative: playlist[5],
+                name: playlist[4],
+                owner: playlist[3],
+                insertedby: req.user.id,
+                imageURL: playlist[1]
+            });
+            novaPlaylist.save()
+        })
+        req.flash('success_msg', "Playlists inseridas com successo!")
+    }
+    else {
+        playlist = req.body.playlistGroup.split(",");
+        var novaPlaylist = Playlist.build({
+            appid: playlist[0],
+            totaltracks: playlist[2],
+            name: playlist[4],
+            collaborative: playlist[5],
+            owner: playlist[3],
+            insertedby: req.user.id,
+            imageURL: playlist[1]
+        });
+        novaPlaylist.save()
+        req.flash('success_msg', "Playlist inserida com successo!")
+    }
+    res.redirect("/v1/home")
+})
+
+router.get("/playlists", async function(req, res) {
+    try {
+        playlists = await Playlist.findAll({
+            attributes: ['imageURL','name', 'totaltracks', 'owner', 'collaborative'],
+            raw: true
+        })
+        res.json(playlists)
+    } catch(err) {
+        console.log(err)
+    }
+});
 //--------------------
 
 //Spotify:
@@ -134,8 +185,8 @@ var client_id = 'c27e1388febe44de99321b4672071d83'; // Your client id
 var client_secret = 'b2daef0f590f4abcbf817efdc1739786'; // Your secret
 var redirect_uri = 'http://localhost:8081/v1/cadastroPlaylist'; // Your redirect uri
 
-router.get('/spotifyplaylists', function(req, res) {
-    userid='yn.guimaraesb'
+router.get('/spotifyplaylists/:userid', function(req, res) {
+    userid=req.params.userid;
 
     var authOptions = {
         url: 'https://accounts.spotify.com/api/token',
@@ -159,7 +210,6 @@ router.get('/spotifyplaylists', function(req, res) {
             };
             request.get(playlistOptions, function(error, response, body) {
                 if(!error && response.statusCode === 200) {
-                    console.log(body)
                     res.json(body)
                 }
                 else {

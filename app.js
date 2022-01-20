@@ -7,6 +7,7 @@ const session = require('express-session');
 const flash = require('connect-flash');
 const passport = require("passport");
 require("./config/auth")(passport);
+const expressLayouts = require('express-ejs-layouts')
 
 //Session:
 app.use(session({
@@ -31,7 +32,9 @@ app.use((req, res, next) => {
 
 //Model Engine:
 app.use(express.static('./public'));
+app.use(expressLayouts)
 app.set('view engine', 'ejs');
+
 
 // Body Parser:
 app.use(bodyParser.json());

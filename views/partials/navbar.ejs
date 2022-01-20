@@ -6,9 +6,10 @@
                 <a class="header_logo" href="home">
                     PlaylistShare
                 </a>
-                <p class="header_version"> Versão 0.1</p>
+                <p class="header_version"> Versão 0.2</p>
             </div>
 
+            <button onclick="changecss()"></button>
             <div class="header_menu">
                 <% if(!user) { %>
                     <a class="header_menu_item" href="login">
@@ -31,4 +32,29 @@
             </div>
         </div>
     </div>
+
+    <script>
+        if(document.cookie == "") {
+            document.cookie="stylesheet=1"
+            console.log(document.cookie);
+        } else if(document.cookie=="stylesheet=1"){
+            document.getElementById('stylesheet').setAttribute('href', '/css/style.css');
+            console.log(document.cookie);
+        } else {
+            document.getElementById('stylesheet').setAttribute('href', '/css/style2.css');
+            console.log(document.cookie);
+        }
+        
+        function changecss() {
+            if(document.cookie == "stylesheet=1") {
+                document.getElementById('stylesheet').setAttribute('href', '/css/style2.css');
+                document.cookie="stylesheet=2"
+                console.log(document.cookie)
+            }
+            else {
+                document.getElementById('stylesheet').setAttribute('href', '/css/style.css');
+                document.cookie="stylesheet=1"
+            }
+        }
+    </script>
 </header>
