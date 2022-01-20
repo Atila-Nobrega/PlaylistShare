@@ -1,6 +1,6 @@
 async function listarPlaylists() {
     try {
-        fetch('http://localhost:8081/v1//playlists')
+        await fetch('http://localhost:8081/v1//playlists')
         .then(response => {
             response.json().then((data) => {
                 data.forEach(function selectplaylists(playlist) {
