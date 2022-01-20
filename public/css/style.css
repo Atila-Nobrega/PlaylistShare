@@ -555,3 +555,9 @@ h3 {
     100% { opacity: 0 }
     0% { opacity: 1 }
 }
+
+.btn_change_css {
+    border-color: #535353;
+    background-color: #b3b3b3;
+    font-weight: 1000;
+}
