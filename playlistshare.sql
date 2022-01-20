@@ -7,3 +7,4 @@ CREATE TABLE usuarios(
 );
 
 DROP TABLE usuarios;
+DROP TABLE playlists;

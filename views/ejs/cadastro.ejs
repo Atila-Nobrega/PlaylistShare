@@ -1,16 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="description" content="Página de cadastro do PlaylistShare" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/main.css">
-    <link rel="stylesheet" href="/css/cadastro.css">
-    <title>PlaylistShare</title>
-</head>
-
 <body>
     <div>
         <!-- views/partials/navbar.ejs -->
@@ -26,7 +13,7 @@
             <% }); %>
         <%}%>
         
-        <main class="w-100 flex-center">
+        <main class="main_main flex-center">
             <div class="cadastro-box">
                 <h2 class="text-center w-100">Cadastro</h2>
                 <form action="/v1/cadastro" method="POST">
@@ -65,5 +52,3 @@
         </main>
     </div>
 </body>
-
-</html>

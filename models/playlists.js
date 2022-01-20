@@ -12,6 +12,10 @@ const Playlist = database.define('playlists', {
         type: Seq.STRING,
         allowNull: true
     },
+    name: {
+        type: Seq.STRING,
+        allowNull: false
+    },
     totaltracks: {
         type: Seq.INTEGER,
         allowNull: false
@@ -25,11 +29,11 @@ const Playlist = database.define('playlists', {
         allowNull:false
     },
     insertedby: {
-        type: Seq.STRING(20),
+        type: Seq.INTEGER,
         allowNull: false
     },
     imageURL: {
-        type: Seq.STRING(300),
+        type: Seq.STRING(250),
         allowNull: true
     }
 });
