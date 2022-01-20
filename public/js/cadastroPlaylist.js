@@ -5,7 +5,7 @@ async function listarPlaylists() {
     if(app == "spotify") {
         try {
             playlist_list_cd.innerHTML = ''
-            fetch('http://localhost:8081/v1/spotifyplaylists/' + userid)
+            await fetch('http://localhost:8081/v1/spotifyplaylists/' + userid)
             .then(response => {
                 response.json().then((data) => {
                     dados = JSON.parse(data)

@@ -3,8 +3,8 @@ const Seq = require('sequelize');
 const Usuario = require('../models/usuarios');
 const bcrypt = require('bcryptjs');
 
-module.exports = function(passport) {
-    passport.use(new localStrategy({usernameField: 'username', passwordField: 'password'}, (username, password, done) =>{
+module.exports = async function(passport) {
+    await passport.use(new localStrategy({usernameField: 'username', passwordField: 'password'}, (username, password, done) =>{
         Usuario.findOne({where: {username: username}}).then((usuario) => {
             if(!usuario) {
                 return done(null, false, {message: "essa conta não existe"})
@@ -20,11 +20,11 @@ module.exports = function(passport) {
         })
     }))
 
-    passport.serializeUser((usuario, done) => {
+    await passport.serializeUser((usuario, done) => {
         done(null, usuario)
     })
 
-    passport.deserializeUser((serialusuario, done) => {
+    await passport.deserializeUser((serialusuario, done) => {
         Usuario.findByPk(serialusuario.id).then((usuario) => {
             done(null, usuario)
         }).catch((erro) => {
