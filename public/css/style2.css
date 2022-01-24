@@ -1,3 +1,5 @@
+/* Conjunto de variáveis com as cores de alto padrão */
+
 :root {
     --main-primary-color: #242424;
     --main-header-color: #009e73;
@@ -9,55 +11,9 @@
     --main-playlist-color: #e26218;
 }
 
-
-a {
-    text-decoration: none;
-    background-color: transparent
-}
-
-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    background: var(--main-header-color);
-}
-
-.of-auto {
-    overflow: scroll;
-    overflow-x: hidden;
-    scrollbar-color: #6969dd #e0e0e0;
-    scrollbar-width: thin;
-}
-
-.h-15 {
-    max-height: 15rem;
-}
-
-.fc-black {
-    color: var(--main-black-text-color);
-}
-
-.grey_border {
-    border-style: solid;
-    border-width: 4px;
-    border-color: dimgrey;
-}
-
-.list_block {
-    padding-left: 8px;
-    padding-right: 8px;
-    background-color: #535353;
-}
-
-.main_main {
-    margin-top: 120px;
-}
-
-.w-100 {
-    box-sizing: border-box;
-    width: 100%;
-}
+/*
+    | CONJUNTO DE ESTILOS QUE ALTERAM AS TAGS BÁSICAS
+*/
 
 body {
     background-color: var(--main-secondary-bg-color);
@@ -79,6 +35,45 @@ h2 {
 h3 {
     font-size: 20px;
     color: var(--main-white-text-color);
+}
+
+a {
+    text-decoration: none;
+    background-color: transparent
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: var(--main-header-color);
+}
+
+*::-webkit-scrollbar {
+    height: 7px;
+}
+
+*::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: #bdbbbb;
+    border-radius: 10px;
+}
+
+/*
+    | CONJUNTO DE CLASSES DE UTILIDADE
+*/
+
+.h-15 {
+    max-height: 15rem;
+}
+
+.w-100 {
+    box-sizing: border-box;
+    width: 100%;
 }
 
 .bg-red {
@@ -153,6 +148,54 @@ h3 {
 .flex-justify-between {
     display: flex;
     justify-content: space-between;
+}
+
+.fc-black {
+    color: var(--main-black-text-color);
+}
+
+/*
+    | CONJUNTO DE CLASSES PARA ITENS GERAIS
+*/
+
+.primary-btn {
+    color: var(--main-white-text-color);
+    background-color: var(--main-primary-color);
+    border-radius: 0.25rem;
+    border: none;
+    padding: 0.5rem;
+}
+
+.primary-btn:hover {
+    opacity: 0.60;
+    cursor: pointer;
+}
+
+.of-auto {
+    overflow: scroll;
+    overflow-x: hidden;
+    scrollbar-color: #6969dd #e0e0e0;
+    scrollbar-width: thin;
+}
+
+.grey_border {
+    border-style: solid;
+    border-width: 4px;
+    border-color: dimgrey;
+}
+
+.list_block {
+    padding-left: 8px;
+    padding-right: 8px;
+    background-color: #535353;
+}
+
+/*
+    | CONJUNTO DE CLASSES DE COMPONENTES GLOBAIS (QUE ESTÃO EM QUASE TODAS AS PÁGINAS, COMO CABEÇALHOS, FUNDOS, ETC.)
+*/
+
+.main_main {
+    margin-top: 120px;
 }
 
 .wrapper {
@@ -245,25 +288,16 @@ h3 {
     opacity: 0.60
 }
 
-.primary-btn {
-    color: var(--main-white-text-color);
-    background-color: var(--main-primary-color);
-    border-radius: 0.25rem;
-    border: none;
-    padding: 0.5rem;
-}
-
-.primary-btn:hover {
-    opacity: 0.60;
-    cursor: pointer;
-}
-
 .text-input {
     background-color: var(--main-white-text-color);
     border: 0.2rem solid var(--main-primary-color);
     padding-top: 0.25rem;
     padding-bottom: 0.25rem;
 }
+
+/*
+    | CONJUNTO DE CLASSES DE COMPONENTES ESPECÍFICOS
+*/
 
 .text-input-cadastroplaylist{
     font-size: 30px;
@@ -368,19 +402,6 @@ h3 {
     position:relative;
     top:10px;
     right: 25px;
-}
-
-*::-webkit-scrollbar {
-    height: 7px;
-}
-
-*::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-*::-webkit-scrollbar-thumb {
-    background-color: #bdbbbb;
-    border-radius: 10px;
 }
 
 .user {
@@ -504,7 +525,6 @@ h3 {
 .alert-success:empty {
     display: none;
 }
-
 
 .alert-error {
     z-index: 3;
