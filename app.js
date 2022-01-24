@@ -1,3 +1,6 @@
+/* Este é o código inicial. dê "node app.js" em um terminal para começar a aplicação */
+
+// Definição de variáveis e módulos necessários
 const express = require('express');
 const app = express();
 const port = 8081;
