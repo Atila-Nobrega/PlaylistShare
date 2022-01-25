@@ -144,7 +144,8 @@ router.post("/cadastrarplaylist", eUser, function(req, res) {
                 name: playlist[4],
                 owner: playlist[3],
                 insertedby: req.user.id,
-                imageURL: playlist[1]
+                imageURL: playlist[1],
+                appname: playlist[6]
             });
             novaPlaylist.save()
         })
@@ -159,7 +160,8 @@ router.post("/cadastrarplaylist", eUser, function(req, res) {
             collaborative: playlist[5],
             owner: playlist[3],
             insertedby: req.user.id,
-            imageURL: playlist[1]
+            imageURL: playlist[1],
+            appname: playlist[6]
         });
         novaPlaylist.save()
         req.flash('success_msg', "Playlist inserida com successo!")
@@ -170,7 +172,7 @@ router.post("/cadastrarplaylist", eUser, function(req, res) {
 router.get("/playlists", async function(req, res) {
     try {
         playlists = await Playlist.findAll({
-            attributes: ['imageURL','name', 'totaltracks', 'owner', 'collaborative'],
+            attributes: ['imageURL','name', 'totaltracks', 'owner', 'collaborative', 'appname'],
             raw: true
         })
         res.json(playlists)
@@ -178,7 +180,24 @@ router.get("/playlists", async function(req, res) {
         console.log(err)
     }
 });
-//--------------------
+
+router.get("/playlists/:userid", async function(req, res) {
+    userid = req.params.userid;
+    try {
+        playlists = await Playlist.findAll({
+            attributes: ['imageURL', 'name', 'totaltracks', 'owner', 'collaborative', 'appname'],
+            where: {insertedby: userid},
+            include: [{
+                model: Usuario,
+                required: true
+            }]
+        })
+        res.json(playlists)
+    } catch(err) {
+        console.log(err)
+    }
+});
+// --------------------
 
 //Spotify:
 var client_id = 'c27e1388febe44de99321b4672071d83'; // Your client id

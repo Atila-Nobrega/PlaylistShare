@@ -1,10 +1,14 @@
 async function listarPlaylists() {
     try {
-        await fetch('http://localhost:8081/v1//playlists')
+        await fetch('http://localhost:8081/v1/playlists')
         .then(response => {
             response.json().then((data) => {
                 data.forEach(function selectplaylists(playlist) {
-                    getPlaylists(playlist.imageURL, playlist.totaltracks, playlist.owner, playlist.name, playlist.collaborative)
+                    if(playlist.appname == 'spotify') {
+                        getPlaylistsSpotify(playlist.imageURL, playlist.totaltracks, playlist.owner, playlist.name, playlist.collaborative)
+                    } else {
+                        console.log("Outros aplicativos ainda não adicionados!") // Aqui entra um if else dos outros aplicativos
+                    }
                 })
             })
         })
@@ -16,7 +20,7 @@ async function listarPlaylists() {
 
 listarPlaylists()
 
-function getPlaylists(imageurl, tracksqnt, owner, name, collaborative) {
+function getPlaylistsSpotify(imageurl, tracksqnt, owner, name, collaborative) {
     
     var block = document.createElement('div');
     block.classList.add('playlist_block');

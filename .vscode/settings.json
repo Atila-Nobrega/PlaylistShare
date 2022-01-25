@@ -9,6 +9,16 @@
             "database": "playlistshare",
             "username": "admin",
             "password": "admin"
+        },
+        {
+            "previewLimit": 50,
+            "server": "fechine.ddns.net",
+            "port": 54321,
+            "driver": "PostgreSQL",
+            "name": "fetchine db",
+            "database": "playlistshare",
+            "username": "playlistshare",
+            "password": "1862"
         }
     ]
 }
