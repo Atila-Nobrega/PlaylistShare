@@ -16,7 +16,8 @@ async function listarPlaylists() {
                         else {
                             playlisturl = playlist.images[0].url
                         }
-                        getPlaylists(playlist.id, playlisturl, playlist.tracks.total, playlist.owner.display_name, playlist.name, playlist.collaborative)
+                        appname = "spotify"
+                        getPlaylists(playlist.id, playlisturl, playlist.tracks.total, playlist.owner.display_name, playlist.name, playlist.collaborative, appname)
                     })
                 })
             })
@@ -26,8 +27,8 @@ async function listarPlaylists() {
     }
 }
 
-function getPlaylists(id, imageurl, tracksqnt, owner, name, collaborative) {
-    payload = id+","+imageurl+","+tracksqnt+","+owner+","+name+","+collaborative
+function getPlaylists(id, imageurl, tracksqnt, owner, name, collaborative, appname) {
+    payload = id+","+imageurl+","+tracksqnt+","+owner+","+name+","+collaborative+","+appname
     //"{" + "\"id\":"+ id + ", \"name\":"+ name + ", \"imageurl\":" + imageurl + ", \"owner\":" + owner + ", \"trackqnt\":" + tracksqnt + ", \"collaborative\":" + collaborative + "}"
     var block = document.createElement('div');
     block.classList.add('playlist_block');

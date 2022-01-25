@@ -26,42 +26,45 @@
                 <h3 id=userplaylist>4</h3>
             </div>
             <div id = "playlist_list">
-                <div class="playlist_block">
-                    <img class="album_icon" src=albumteste.jpg alt="Album Cover">
-                    <div class=playlist_item>Musicas do Queen</div>
-                    <div class=playlist_item>Tracks: 23</div>
-                    <div class=playlist_item>Time: 1:32:23</div>
-                    <button type="submit" class=delete_btn><i class="fas fa-trash"></i></button>
-                </div>
-                <div class="playlist_block2">
-                    <img class="album_icon" src=albumteste.jpg alt="Album Cover">
-                    <div class=playlist_item>Musicas do Queen</div>
-                    <div class=playlist_item>Tracks: 23</div>
-                    <div class=playlist_item>Time: 1:32:23</div>
-                    <button type="submit" class=delete_btn><i class="fas fa-trash"></i></button>
-                </div>
-                <div class="playlist_block3">
-                    <img class="album_icon" src=albumteste.jpg alt="Album Cover">
-                    <div class=playlist_item>Musicas do Queen</div>
-                    <div class=playlist_item>Tracks: 23</div>
-                    <div class=playlist_item>Time: 1:32:23</div>
-                    <button type="submit" class=delete_btn><i class="fas fa-trash"></i></button>
-                </div>
-                <div class="playlist_block4">
-                    <img class="album_icon" src=albumteste.jpg alt="Album Cover">
-                    <div class=playlist_item>Musicas do Queen</div>
-                    <div class=playlist_item>Tracks: 23</div>
-                    <div class=playlist_item>Time: 1:32:23</div>
-                    <button type="submit" class=delete_btn><i class="fas fa-trash"></i></button>
-                </div>
             </div>
         </div>
     </main>
     <script>
-        //field = document.getElementById('userdate');
-        //var userdateexemplo = user.createdAt;
-        //var userdate = document.createTextNode(userdateexemplo);
+        async function encontrarPlaylistsUsuario() {
+            try {
+                console.log('<%= user.id%>')
+                await fetch('http://localhost:8081/v1/playlists/<%= user.id%>')
+                .then(response => {
+                    response.json().then((data) => {
+                        data.forEach(function selectplaylists(playlist) {
+                            if(playlist.appname == 'spotify') {
+                                displayPlaylistsSpotify(playlist.imageURL, playlist.totaltracks, playlist.owner, playlist.name, playlist.collaborative)
+                            } else {
+                                console.log("Outros aplicativos ainda não adicionados!") // Aqui entra um if else dos outros aplicativos
+                            }
+                        })
+                    })
+                })
+            } catch (error) {
+                console.log(error)
+            }
+            
+        }
+
+        encontrarPlaylistsUsuario()
+
+        function displayPlaylistsSpotify(imageurl, tracksqnt, owner, name, collaborative) {
     
-        //field.appendChild(userdate);
+        var block = document.createElement('div');
+        block.classList.add('playlist_block');
+        block.innerHTML = "<img class=\"album_icon\" src=" + imageurl + " alt=\"Album Cover\">" 
+        + "<div class=playlist_item>" + name + "</div>"
+        + "<div class=playlist_item>Tracks: "+ tracksqnt +"</div>"
+        + "<div class=playlist_item>" + owner +"</div>"
+        + "<div class=playlist_item>Collab: "+ collaborative +"</div>"
+        + "<button type=\"submit\" class=delete_btn><i class=\"fas fa-trash\"></i></button>"
+    
+        document.getElementById("playlist_list").insertBefore(block, document.getElementById("playlist_list").firstChild);
+}
     </script>
 </body>

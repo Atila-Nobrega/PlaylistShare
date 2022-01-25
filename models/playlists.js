@@ -1,6 +1,7 @@
 const Seq = require('sequelize');
 const sequelize = require('./db.js');
 const database = require('./db.js');
+const Usuario = require('../models/usuarios');
 
 const Playlist = database.define('playlists', {
     id: {
@@ -30,12 +31,22 @@ const Playlist = database.define('playlists', {
     },
     insertedby: {
         type: Seq.INTEGER,
-        allowNull: false
+        allowNull: false,
+        references: {
+            model: 'usuarios',
+            key: 'id'
+        }
     },
     imageURL: {
         type: Seq.STRING(250),
         allowNull: true
+    },
+    appname: {
+        type: Seq.STRING,
+        allowNull: false
     }
 });
+
+Playlist.belongsTo(Usuario, {foreignKey: 'insertedby'});
 
 module.exports = Playlist;
