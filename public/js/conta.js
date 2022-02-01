@@ -20,6 +20,12 @@ async function deletarUsuario() {
 
     try {
         await fetch('http://localhost:8081/v1/deletarconta', deleteMethod)
+        .then(function(response) {
+            if (!response.ok) {
+                throw Error(response.statusText);
+            }
+            return response;
+        })
         .then(() => {
             location.replace("http://localhost:8081/v1/home/sucessdelete")
         })
@@ -53,21 +59,25 @@ window.onclick = function(event) {
 }
 
 async function mudarSenhaUsuario() {
-    const formData = new FormData();
     novasenha = document.getElementById("password").value
     novasenhaconfirm = document.getElementById("passwordconfirm").value
 
-    if(novasenha == novasenhaconfirm && novasenha != null) {
-        formData.append('password', novasenha)
+    if(novasenha == novasenhaconfirm && novasenha != "") {
     
         const putMethod = {
             method: 'PUT',
-            body: formData,
-            redirect: 'follow'
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({password: novasenha })
         }
     
         try {
             await fetch('http://localhost:8081/v1/mudarsenha', putMethod)
+            .then(function(response) {
+                if (!response.ok) {
+                    throw Error(response.statusText);
+                }
+                return response;
+            })
             .then(() => {
                 location.replace("http://localhost:8081/v1/conta/success")
             })
