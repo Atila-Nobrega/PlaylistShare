@@ -55,7 +55,7 @@ function showPlaylistDetails(appid, imageurl, tracksqnt, owner, name, collaborat
     + "</div>"
     + "</div>"
     + "<div class=\"playlist-details-bottom\">"
-    + "<a href=\"https://open.spotify.com/playlist/" + appid + "\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"playlist-details-goto-link\"><button class=\"playlist-details-goto-button\"><h3>Ir para a playlist!</h3></button></a>"
+    + "<a href=\"https://open.spotify.com/playlist/" + appid + "\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"playlist-details-goto-link\"><button class=\"playlist-details-goto-button\">Ir para a playlist!</button></a>"
     + "</div>"
     + "<button class=\"playlist-details-close-button\" onclick=\"hidePlaylistDetails()\">X</button>"
     + "</div>";
