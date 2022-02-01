@@ -29,6 +29,7 @@ function getPlaylistsSpotify(appid, imageurl, tracksqnt, owner, name, collaborat
     + "<div class=playlist_item>" + owner +"</div>"
     + "<div class=playlist_item>Collab: "+ collaborative +"</div>"
     
+    console.log(typeof appid)
     block.onclick = () => {
         showPlaylistDetails(appid, imageurl, tracksqnt, owner, name, collaborative);
     };
@@ -39,5 +40,5 @@ function getPlaylistsSpotify(appid, imageurl, tracksqnt, owner, name, collaborat
 function showPlaylistDetails(appid, imageurl, tracksqnt, owner, name, collaborative) {
     var block = document.createElement("");
     block.innerHTML = ""
-    + "<div class=";
+    + "<div class=playlist-details></div>";
 }
