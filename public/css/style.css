@@ -682,5 +682,91 @@ header {
     to {top: 0; opacity: 1}
 }
 
+/* 
+    || Casses da página de detalhes da playlist
+*/
+
+.playlist-details-background {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    transform: translate(-50%, -50%);
+    background-color: #222222aa;
+    z-index: 8;
+}
+
+.playlist-details-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    height: 90%;
+    background-color: #121212;
+    z-index: 9;
+}
+
+.playlist-details-top {
+    background-color: #535353;
+    width: 100%;
+    height: 200px;
+    display: flex;
+}
+
+.playlist-details-image {
+    margin-right: 20px;
+}
+
+.playlist-details-trash {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+}
+
+.playlist-details-trash-button {
+    width: 48px;
+    background-color: #4894f7;
+}
+
+.playlist-details-trash-button:hover {
+    cursor: pointer;
+}
+
+.playlist-details-bottom {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60%;
+}
+
+.playlist-details-goto-button {
+    background-color: #4894f7;
+}
+
+.playlist-details-goto-button:hover {
+    cursor: pointer;
+}
+
+.playlist-details-goto-link {
+    color: #e9e9e9;
+}
+
+.playlist-details-close-button {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    color: red;
+    font-weight: bolder;
+    font-size: 30px;
+    background-color: #00000050;
+    border: 1px solid black;
+}
+
+.playlist-details-close-button:hover {
+    cursor: pointer;
+}
 
 #loadOverlay{display: none;}
