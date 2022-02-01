@@ -582,12 +582,6 @@ header {
     0% { opacity: 1 }
 }
 
-.btn_change_css {
-    border-color: #535353;
-    background-color: #b3b3b3;
-    font-weight: 1000;
-}
-
 /* 
     || Classes do painel de acessibilidade
 */
