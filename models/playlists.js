@@ -47,6 +47,6 @@ const Playlist = database.define('playlists', {
     }
 });
 
-Playlist.belongsTo(Usuario, {foreignKey: 'insertedby'});
+Playlist.belongsTo(Usuario, {foreignKey: 'insertedby', onDelete: 'CASCADE'});
 
 module.exports = Playlist;

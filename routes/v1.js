@@ -15,6 +15,11 @@ router.get("/home", function(req, res) {
     res.render('ejs/home');
 });
 
+router.get("/home/sucessdelete", function(req, res) {
+    req.flash("success_msg", "Sua conta foi excluida com sucesso!")
+    res.redirect('/v1/home');
+});
+
 router.get("/", function(req, res) {
     res.render('ejs/home');
 });
@@ -117,8 +122,32 @@ router.get("/logout", function(req, res) {
     res.redirect("/v1/home")
 });
 
+router.get('/conta/success', eUser, function(req,res) {
+    req.flash("success_msg", "Sua senha foi alterada com successo!")
+    res.redirect('/v1/conta');
+})
+
+router.get('/conta/fail', eUser, function(req,res) {
+    req.flash("error_msg", "Erro ao executar operação!")
+    res.redirect('/v1/conta');
+})
+
 router.get('/conta', eUser, function(req,res) {
     res.render("ejs/conta")
+})
+
+router.delete('/deletarconta', eUser, function(req,res) {
+    try {
+        Usuario.destroy({
+            where: {
+                id: req.user.id
+            }
+        })
+        req.logout()
+        res.redirect(303, '/v1/home')
+    } catch (error) {
+        console.log(error)
+    }
 })
 //--------------
 
@@ -172,7 +201,7 @@ router.post("/cadastrarplaylist", eUser, function(req, res) {
 router.get("/playlists", async function(req, res) {
     try {
         playlists = await Playlist.findAll({
-            attributes: ['imageURL','name', 'totaltracks', 'owner', 'collaborative', 'appname'],
+            attributes: ['imageURL','name', 'totaltracks', 'owner', 'collaborative', 'appname', 'appid'],
             raw: true
         })
         res.json(playlists)
