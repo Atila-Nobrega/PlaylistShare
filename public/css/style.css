@@ -254,8 +254,7 @@ header {
 }
 
 .header_logo {
-    /* font-size: 30px; */
-    font-size: 30em;
+    font-size: 40em;
     align-items: center;
     font-weight: 900;
     color: var(--main-blue-color);
@@ -361,6 +360,7 @@ header {
 }
 
 .whitelink {
+    font-size: 20em;
     color: whitesmoke;
 }
 
@@ -515,6 +515,7 @@ header {
     margin-bottom: 15px;
     opacity: 0;
     animation: fade 10s linear;
+    font-size: 20em;
 }
 
 .alert-success:empty {
@@ -536,6 +537,7 @@ header {
     margin-bottom: 15px;
     opacity: 0;
     animation: fade 10s linear;
+    font-size: 20em;
 }
 
 .alert-error:empty {
@@ -751,6 +753,9 @@ header {
 
 .playlist-details-goto-button {
     background-color: #4894f7;
+    font-size: 40em;
+    color: var(--main-white-text-color);
+    padding: 20px;
 }
 
 .playlist-details-goto-button:hover {
