@@ -147,6 +147,33 @@ router.delete('/deletarconta', eUser, function(req,res) {
         res.redirect(303, '/v1/home')
     } catch (error) {
         console.log(error)
+        res.redirect(400, '/v1/conta')
+    }
+})
+
+router.put('/mudarsenha', eUser, function(req,res) {
+    try {
+        if(req.body.password.length < 8) {
+            res.redirect(400, '/v1/conta')
+        }
+        else {
+            userpassword = req.body.password
+            bcrypt.genSalt(10, (erro, salt) => {
+                bcrypt.hash(userpassword, salt, (erro, hash) => {
+                    if(erro) {
+                        throw Error("Erro ao criar hash na mudança de senha!");
+                    }
+                    newpassword = hash
+
+                    Usuario.update({password: newpassword}, {where: {id: req.user.id}})
+
+                    res.redirect(303, '/v1/conta')
+                })
+            });
+        }
+    } catch(error) {
+        console.log(error)
+        res.redirect(400, '/v1/conta')
     }
 })
 //--------------
