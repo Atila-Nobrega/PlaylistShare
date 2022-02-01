@@ -36,12 +36,15 @@ function getPlaylistsSpotify(appid, imageurl, tracksqnt, owner, name, collaborat
     document.getElementById("playlist_list").insertBefore(block, document.getElementById("playlist_list").firstChild);
 }
 
+var appidAtual = "";
+
 function showPlaylistDetails(appid, imageurl, tracksqnt, owner, name, collaborative) {
     var block = document.createElement("div");
     block.classList.add("playlist-details-background");
     block.id = "playlist-details";
     
     let eAdmin = parseInt(localStorage.getItem("eAdmin"));
+    appidAtual = (' ' + appid).slice(1);
 
     block.innerHTML = ""
     + "<div class=\"playlist-details-container\">"
@@ -54,7 +57,7 @@ function showPlaylistDetails(appid, imageurl, tracksqnt, owner, name, collaborat
                 + ((collaborative === false) ? "<h4>Colaborativa? Não</h4>" : "<h4>Colaborativa? Sim</h4>")
             + "</div>"
             + "<div class=\"playlist-details-trash\">"
-                + ((eAdmin >= 1) ? "<button class=\"playlist-details-trash-button\" onclick=\"() => {deletePlaylist(\"" + appid + "\")}\"><img src=\"/assets/images/lixo.png\" alt=\"\" width=\"100%\"/></button>" : "")
+                + ((eAdmin >= 1) ? "<button class=\"playlist-details-trash-button\" onclick=\"deletePlaylist()\"><img src=\"/assets/images/lixo.png\" alt=\"\" width=\"100%\"/></button>" : "")
             + "</div>"
         + "</div>"
         + "<div class=\"playlist-details-bottom\">"
@@ -70,7 +73,9 @@ function hidePlaylistDetails() {
     document.getElementById("playlist-details").remove();
 }
 
-async function deletePlaylist(appid) {
+async function deletePlaylist() {
+    let appid = appidAtual;
+
     const deleteMethod = {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
