@@ -258,7 +258,7 @@ router.delete("/deletarplaylist", eAdmin, function(req,res) {
     try {
         Playlist.destroy({
             where: {
-                id: req.playlist.id
+                appid: req.body.playlistid
             }
         })
         
