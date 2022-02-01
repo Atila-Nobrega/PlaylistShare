@@ -1,3 +1,41 @@
+async function encontrarPlaylistsUsuario() {
+    try {
+        var userid = localStorage.getItem('userid');
+
+        await fetch('http://localhost:8081/v1/playlists/' + userid)
+        .then(response => {
+            response.json().then((data) => {
+                data.forEach(function selectplaylists(playlist) {
+                    if(playlist.appname == 'spotify') {
+                        displayPlaylistsSpotify(playlist.imageURL, playlist.totaltracks, playlist.owner, playlist.name, playlist.collaborative)
+                    } else {
+                        console.log("Outros aplicativos ainda não adicionados!") // Aqui entra um if else dos outros aplicativos
+                    }
+                })
+            })
+        })
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+encontrarPlaylistsUsuario()
+
+function displayPlaylistsSpotify(imageurl, tracksqnt, owner, name, collaborative) {
+
+    var block = document.createElement('div');
+    block.classList.add('playlist_block');
+    block.innerHTML = "<img class=\"album_icon\" src=" + imageurl + " alt=\"Album Cover\">" 
+    + "<div class=playlist_item>" + name + "</div>"
+    + "<div class=playlist_item>Tracks: "+ tracksqnt +"</div>"
+    + "<div class=playlist_item>" + owner +"</div>"
+    + "<div class=playlist_item>Collab: "+ collaborative +"</div>"
+    + "<button type=\"submit\" class=delete_btn><i class=\"fas fa-trash\"></i></button>"
+
+    document.getElementById("playlist_list").insertBefore(block, document.getElementById("playlist_list").firstChild);
+}
+
+
 //Botão de deletar:
 var modal = document.getElementById("modal");
 

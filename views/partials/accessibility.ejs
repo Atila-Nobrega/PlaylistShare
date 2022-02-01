@@ -33,14 +33,14 @@
     function increaseFontSize() {
         let stringTextSize = getComputedStyle(cssVariables).getPropertyValue("--font-regular-size");
         let textSize = Number(stringTextSize.substring(0, stringTextSize.indexOf("px")));
-        let newTextSize = (textSize + 1).toString() + "px";
+        let newTextSize = (textSize + 0.1).toString() + "px";
         cssVariables.style.setProperty("--font-regular-size", newTextSize);
     }
     
     function decreaseFontSize() {
         let stringTextSize = getComputedStyle(cssVariables).getPropertyValue("--font-regular-size");
         let textSize = Number(stringTextSize.substring(0, stringTextSize.indexOf("px")));
-        let newTextSize = (textSize - 1).toString() + "px";
+        let newTextSize = (textSize - 0.1).toString() + "px";
         cssVariables.style.setProperty("--font-regular-size", newTextSize);
     }
 </script>
