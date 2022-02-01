@@ -41,6 +41,8 @@ function showPlaylistDetails(appid, imageurl, tracksqnt, owner, name, collaborat
     block.classList.add("playlist-details-background");
     block.id = "playlist-details";
     
+    let eAdmin = parseInt(localStorage.getItem("eAdmin"));
+
     block.innerHTML = "<div class=\"playlist-details-container\">"
     + "<div class=\"playlist-details-top\">"
     + "<img src=\"" + imageurl + "\" alt=\"\" height=\"100%\" class=\"playlist-details-image\"/>"
@@ -51,7 +53,7 @@ function showPlaylistDetails(appid, imageurl, tracksqnt, owner, name, collaborat
     + ((collaborative === false) ? "<h4>Colaborativa? Não</h4>" : "<h4>Colaborativa? Sim</h4>")
     + "</div>"
     + "<div class=\"playlist-details-trash\">"
-    + "<button class=\"playlist-details-trash-button\"><img src=\"/assets/images/lixo.png\" alt=\"\" width=\"100%\"/></button>"
+    + ((eAdmin >= 1) ? "<button class=\"playlist-details-trash-button\"><img src=\"/assets/images/lixo.png\" alt=\"\" width=\"100%\"/></button>" : "")
     + "</div>"
     + "</div>"
     + "<div class=\"playlist-details-bottom\">"
