@@ -2,32 +2,63 @@
     <main class="wrapper_main">      
         <div class="user">
             <h2>Informações da conta:</h2>
-            <div class="usernameinfo">
+            <div class="accinfotop accinfo">
                 <h3>Usuário:</h3>
-                <h3 id=username> <%=user.username%> </h3>
+                <h3 class="datamargin"> <%=user.username%> </h3>
             </div>
-            <div class="emailinfo">
+            <div class="accinfo">
                 <h3>Email:</h3>
-                <h3 id=useremail> <%=user.email%> </h3>
+                <h3 class="datamargin"> <%=user.email%> </h3>
             </div>
-            <div class="dateinfo">
+            <div class="accinfo">
                 <h3>Data de criação:</h3>
-                <h3 id=userdate> <%=user.createdAt%> </h3>
+                <h3 class="datamargin"><%=user.createdAt%> </h3>
             </div>
-            <button type="button" class="account_button">Mudar Senha</button>
-            <button type="button" class="account_button">Deletar Conta</button>
-            <div class="playlistinfo">
+            <button type="button" class="account_button" id="mudarBtn">Mudar Senha</button>
+            <div id="modalmudar" class="modal">
+                <div class="modal-changepassword">
+                    <div class="center-container">
+                        <div>
+                            <label class="fs-5">Senha:</label>
+                            <input id="password" name="password" class="text-input w-30 fs-6 my-2" type="password"/>
+                        </div>
+                        <div>
+                            <label class="fs-5">Confirmar senha:</label>
+                            <input id="passwordconfirm" name="passwordconfirm" class="text-input w-30 fs-6 my-2" type="password"/>
+                        </div>
+                        <button type="button" class="account_button" id="accountChangePass" onClick="mudarSenhaUsuario()">Confirmar</button>
+                        <button type="button" class="account_button" id="closemudar">Voltar</button>
+                    </div>
+                </div>
+            </div>
+
+
+            <button type="button" class="account_button" id="deletarBtn">Deletar Conta</button>
+            
+            <div id="modal" class="modal">
+                <div class="modal-confirm">
+                    <div class="center-container">
+                        <h2>Tem certeza que deseja excluir sua conta?</h2>
+                        <h4>(todas as suas playlists serão excluidas também!)</h4>
+                        <button type="button" class="account_button" id="accountDelete" onClick="deletarUsuario()">Sim</button>
+                        <button type="button" class="account_button" id="close">Não</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accinfo">
                 <h3>Nº de Playlists:</h3>
-                <h3 id=userplaylist>4</h3>
+                <h3 class="datamargin">4</h3>
             </div>
+
             <div id = "playlist_list">
             </div>
         </div>
     </main>
+
     <script>
         async function encontrarPlaylistsUsuario() {
             try {
-                console.log('<%= user.id%>')
                 await fetch('http://localhost:8081/v1/playlists/<%= user.id%>')
                 .then(response => {
                     response.json().then((data) => {
@@ -43,23 +74,24 @@
             } catch (error) {
                 console.log(error)
             }
-            
         }
 
         encontrarPlaylistsUsuario()
 
         function displayPlaylistsSpotify(imageurl, tracksqnt, owner, name, collaborative) {
-    
-        var block = document.createElement('div');
-        block.classList.add('playlist_block');
-        block.innerHTML = "<img class=\"album_icon\" src=" + imageurl + " alt=\"Album Cover\">" 
-        + "<div class=playlist_item>" + name + "</div>"
-        + "<div class=playlist_item>Tracks: "+ tracksqnt +"</div>"
-        + "<div class=playlist_item>" + owner +"</div>"
-        + "<div class=playlist_item>Collab: "+ collaborative +"</div>"
-        + "<button type=\"submit\" class=delete_btn><i class=\"fas fa-trash\"></i></button>"
-    
-        document.getElementById("playlist_list").insertBefore(block, document.getElementById("playlist_list").firstChild);
-}
+
+            var block = document.createElement('div');
+            block.classList.add('playlist_block');
+            block.innerHTML = "<img class=\"album_icon\" src=" + imageurl + " alt=\"Album Cover\">" 
+            + "<div class=playlist_item>" + name + "</div>"
+            + "<div class=playlist_item>Tracks: "+ tracksqnt +"</div>"
+            + "<div class=playlist_item>" + owner +"</div>"
+            + "<div class=playlist_item>Collab: "+ collaborative +"</div>"
+            + "<button type=\"submit\" class=delete_btn><i class=\"fas fa-trash\"></i></button>"
+
+            document.getElementById("playlist_list").insertBefore(block, document.getElementById("playlist_list").firstChild);
+        }
     </script>
+
+    <script src="/js/conta.js"></script>
 </body>

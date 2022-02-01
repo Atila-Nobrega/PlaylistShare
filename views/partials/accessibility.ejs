@@ -4,10 +4,8 @@
         document.cookie = "stylesheet=1"
     } else if (document.cookie == "stylesheet=1") {
         document.getElementById('stylesheet').setAttribute('href', '/css/style.css');
-        console.log(document.cookie);
     } else {
         document.getElementById('stylesheet').setAttribute('href', '/css/style2.css');
-        console.log(document.cookie);
     }
     
     function expandAccessibility() {
