@@ -261,8 +261,8 @@ router.delete("/deletarplaylist", eAdmin, function(req,res) {
                 id: req.playlist.id
             }
         })
-        req.logout()
-        res.redirect(303, '/v1/home')
+        
+        res.redirect(200, '/v1/home')
     } catch (error) {
         console.log(error)
         res.redirect(400, '/v1/conta')
