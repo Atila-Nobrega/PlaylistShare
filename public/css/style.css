@@ -41,6 +41,11 @@ h3 {
     color: var(--main-white-text-color);
 }
 
+h4 {
+    font-size: 15px;
+    color: var(--main-white-text-color);
+}
+
 a {
     text-decoration: none;
     background-color: transparent
@@ -106,6 +111,11 @@ header {
 .w-40 {
     box-sizing: border-box;
     width: 40%;
+}
+
+.w-30 {
+    box-sizing: border-box;
+    width: 30%;
 }
 
 .my-2 {
@@ -415,35 +425,15 @@ header {
     padding: 30pt;
 }
 
-.usernameinfo {
+.accinfotop {
     display:inline-flex;
 }
 
-#username {
-    margin-left: 10px;
-}
-
-.emailinfo {
+.accinfo {
     display:flex;
 }
 
-#useremail {
-    margin-left: 10px;
-}
-
-.dateinfo {
-    display:flex;
-}
-
-#userdate {
-    margin-left: 10px;
-}
-
-.playlistinfo {
-    display:flex;
-}
-
-#userplaylist {
+.datamargin {
     margin-left: 10px;
 }
 
@@ -643,5 +633,54 @@ header {
     overflow: hidden;
     margin: -14px -10px -18px -10px;
 }
+
+/* 
+   -------------------------------
+*/
+
+.modal { /* Classe principial do modal, contem o plano de fundo apenas */
+    display: none; 
+    position: fixed;
+    z-index: 4;
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgba(0,0,0,0.6);
+}
+
+.modal-confirm {
+    background-color: var(--main-header-color);
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid var(--main-primary-color);
+    width: 30%;
+    place-content: center;
+    animation-name: animatetop;
+    animation-duration: 0.6s
+}
+
+.modal-changepassword {
+    background-color: var(--main-header-color);
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid var(--main-primary-color);
+    width: 40%;
+    place-content: center;
+    animation-name: animatetop;
+    animation-duration: 0.6s
+}
+
+.center-container {
+    padding: 16px;
+    text-align: center;
+}
+
+@keyframes animatetop {
+    from {top: -300px; opacity: 0}
+    to {top: 0; opacity: 1}
+}
+
 
 #loadOverlay{display: none;}
