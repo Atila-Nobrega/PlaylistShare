@@ -17,5 +17,15 @@
 
     <div id="playlist-details-parent"></div>
     
+    <% if(!user) { %>
+        <script>
+            localStorage.setItem("eAdmin", 0);
+        </script>
+    <% } else {%>
+        <script>
+            localStorage.setItem("eAdmin", "<%=user.eAdmin%>");
+        </script>
+    <% }%>
+
     <script src="/js/home.js" defer></script>
 </body>
