@@ -1,3 +1,53 @@
+
+<script>
+    if (document.cookie == "") {
+        document.cookie = "stylesheet=1"
+    } else if (document.cookie == "stylesheet=1") {
+        document.getElementById('stylesheet').setAttribute('href', '/css/style.css');
+        console.log(document.cookie);
+    } else {
+        document.getElementById('stylesheet').setAttribute('href', '/css/style2.css');
+        console.log(document.cookie);
+    }
+    
+    function expandAccessibility() {
+        if (document.getElementById("accessibility-dropdown").style.top === "0px") {
+            document.getElementById("accessibility-dropdown").style.top = "-47px";
+        } else {
+            document.getElementById("accessibility-dropdown").style.top = "0px";
+        }
+    }
+    
+    
+    function changecss() {
+        if (document.cookie == "stylesheet=1") {
+            document.getElementById('stylesheet').setAttribute('href', '/css/style2.css');
+            document.cookie = "stylesheet=2"
+        }
+        else {
+            document.getElementById('stylesheet').setAttribute('href', '/css/style.css');
+            document.cookie = "stylesheet=1"
+        }
+    }
+    
+    // Funções para aumentar e diminuir a fonte do site
+    var cssVariables = document.querySelector(":root");
+    
+    function increaseFontSize() {
+        let stringTextSize = getComputedStyle(cssVariables).getPropertyValue("--font-regular-size");
+        let textSize = Number(stringTextSize.substring(0, stringTextSize.indexOf("px")));
+        let newTextSize = (textSize + 1).toString() + "px";
+        cssVariables.style.setProperty("--font-regular-size", newTextSize);
+    }
+    
+    function decreaseFontSize() {
+        let stringTextSize = getComputedStyle(cssVariables).getPropertyValue("--font-regular-size");
+        let textSize = Number(stringTextSize.substring(0, stringTextSize.indexOf("px")));
+        let newTextSize = (textSize - 1).toString() + "px";
+        cssVariables.style.setProperty("--font-regular-size", newTextSize);
+    }
+</script>
+
 <div id="accessibility-dropdown" class="accessibility-dropdown">
     <div class="accessibility-menu">
         <div class="accessibility-buttons">
@@ -11,51 +61,3 @@
         </div>
     </div>
 </div>
-
-<script>
-    function expandAccessibility() {
-        if (document.getElementById("accessibility-dropdown").style.top === "0px") {
-            document.getElementById("accessibility-dropdown").style.top = "-47px";
-        } else {
-            document.getElementById("accessibility-dropdown").style.top = "0px";
-        }
-    }
-
-    if (document.cookie == "") {
-        document.cookie = "stylesheet=1"
-    } else if (document.cookie == "stylesheet=1") {
-        document.getElementById('stylesheet').setAttribute('href', '/css/style.css');
-        console.log(document.cookie);
-    } else {
-        document.getElementById('stylesheet').setAttribute('href', '/css/style2.css');
-        console.log(document.cookie);
-    }
-
-    function changecss() {
-        if (document.cookie == "stylesheet=1") {
-            document.getElementById('stylesheet').setAttribute('href', '/css/style2.css');
-            document.cookie = "stylesheet=2"
-        }
-        else {
-            document.getElementById('stylesheet').setAttribute('href', '/css/style.css');
-            document.cookie = "stylesheet=1"
-        }
-    }
-
-    // Funções para aumentar e diminuir a fonte do site
-    var cssVariables = document.querySelector(":root");
-
-    function increaseFontSize() {
-        let stringTextSize = getComputedStyle(cssVariables).getPropertyValue("--font-regular-size");
-        let textSize = Number(stringTextSize.substring(0, stringTextSize.indexOf("px")));
-        let newTextSize = (textSize + 1).toString() + "px";
-        cssVariables.style.setProperty("--font-regular-size", newTextSize);
-    }
-
-    function decreaseFontSize() {
-        let stringTextSize = getComputedStyle(cssVariables).getPropertyValue("--font-regular-size");
-        let textSize = Number(stringTextSize.substring(0, stringTextSize.indexOf("px")));
-        let newTextSize = (textSize - 1).toString() + "px";
-        cssVariables.style.setProperty("--font-regular-size", newTextSize);
-    }
-</script>
