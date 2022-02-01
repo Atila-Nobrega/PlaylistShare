@@ -5,7 +5,7 @@ async function listarPlaylists() {
             response.json().then((data) => {
                 data.forEach(function selectplaylists(playlist) {
                     if(playlist.appname == 'spotify') {
-                        getPlaylistsSpotify(playlist.imageURL, playlist.totaltracks, playlist.owner, playlist.name, playlist.collaborative)
+                        getPlaylistsSpotify(playlist.appid, playlist.imageURL, playlist.totaltracks, playlist.owner, playlist.name, playlist.collaborative)
                     } else {
                         console.log("Outros aplicativos ainda não adicionados!") // Aqui entra um if else dos outros aplicativos
                     }
@@ -20,8 +20,7 @@ async function listarPlaylists() {
 
 listarPlaylists()
 
-function getPlaylistsSpotify(imageurl, tracksqnt, owner, name, collaborative) {
-    
+function getPlaylistsSpotify(appid, imageurl, tracksqnt, owner, name, collaborative) {
     var block = document.createElement('div');
     block.classList.add('playlist_block');
     block.innerHTML = "<img class=\"album_icon\" src=" + imageurl + " alt=\"Album Cover\">" 
@@ -30,5 +29,15 @@ function getPlaylistsSpotify(imageurl, tracksqnt, owner, name, collaborative) {
     + "<div class=playlist_item>" + owner +"</div>"
     + "<div class=playlist_item>Collab: "+ collaborative +"</div>"
     
+    block.onclick = () => {
+        showPlaylistDetails(appid, imageurl, tracksqnt, owner, name, collaborative);
+    };
+    
     document.getElementById("playlist_list").insertBefore(block, document.getElementById("playlist_list").firstChild);
+}
+
+function showPlaylistDetails(appid, imageurl, tracksqnt, owner, name, collaborative) {
+    var block = document.createElement("");
+    block.innerHTML = ""
+    + "<div class=";
 }
