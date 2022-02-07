@@ -42,12 +42,13 @@ function showPlaylistDetails(appid, imageurl, tracksqnt, owner, name, collaborat
     var block = document.createElement("div");
     block.classList.add("playlist-details-background");
     block.id = "playlist-details";
+    block.addEventListener("click", hidePlaylistDetails)
     
     let eAdmin = parseInt(localStorage.getItem("eAdmin"));
     appidAtual = (' ' + appid).slice(1);
 
     block.innerHTML = ""
-    + "<div class=\"playlist-details-container\">"
+    + "<div class=\"playlist-details-container\" onclick=\"dontHidePlaylistDetails(event)\">"
         + "<div class=\"playlist-details-top\">"
             + "<img src=\"" + imageurl + "\" alt=\"\" height=\"100%\" class=\"playlist-details-image\"/>"
             + "<div>"
@@ -63,14 +64,26 @@ function showPlaylistDetails(appid, imageurl, tracksqnt, owner, name, collaborat
         + "<div class=\"playlist-details-bottom\">"
             + "<a href=\"https://open.spotify.com/playlist/" + appid + "\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"playlist-details-goto-link\"><button class=\"playlist-details-goto-button\">Ir para a playlist!</button></a>"
         + "</div>"
-        + "<button class=\"playlist-details-close-button\" onclick=\"hidePlaylistDetails()\">X</button>"
+        + "<button class=\"playlist-details-close-button\" onclick=\"hidePlaylistDetails(event)\">X</button>"
     + "</div>";
 
     document.getElementById("playlist-details-parent").insertBefore(block, document.getElementById("playlist-details-parent").firstChild);
+    
+    setTimeout(() => {
+        document.getElementById("playlist-details").style.opacity = "1";
+    }, 1);
 }
 
-function hidePlaylistDetails() {
-    document.getElementById("playlist-details").remove();
+function hidePlaylistDetails(event) {
+    document.getElementById("playlist-details").style.opacity = "0";
+
+    setTimeout(() => {
+        document.getElementById("playlist-details").remove();
+    }, 250);
+}
+
+function dontHidePlaylistDetails(event) {
+    event.stopPropagation();
 }
 
 async function deletePlaylist() {

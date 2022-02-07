@@ -698,13 +698,15 @@ header {
     transform: translate(-50%, -50%);
     background-color: #222222aa;
     z-index: 8;
-    animation: fadein 0.25s;
+    opacity: 0;
+    transition: opacity 0.25s;
+    /* animation: fadein 0.25s; */
 }
 
-@keyframes fadein {
+/* @keyframes fadein {
     from { opacity: 0; }
     to   { opacity: 1; }
-}
+} */
 
 .playlist-details-container {
     position: fixed;
