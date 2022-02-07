@@ -18,11 +18,26 @@ async function listarPlaylists() {
     
 }
 
+var textoBusca = ""
+
+function buscarPlaylist() {
+    textoBusca = document.getElementById("busca-playlist").value;
+
+    document.getElementById("playlist_list").innerHTML = "";
+
+    listarPlaylists();
+}
+
 listarPlaylists()
 
 function getPlaylistsSpotify(appid, imageurl, tracksqnt, owner, name, collaborative, insertedby) {
+    if (textoBusca != "" && name.search(textoBusca) === -1) {
+        return;
+    }
+
     var block = document.createElement('div');
     block.classList.add('playlist_block');
+
     block.innerHTML = "<img class=\"album_icon\" src=" + imageurl + " alt=\"Album Cover\">" 
     + "<div class=playlist_item>" + name + "</div>"
     + "<div class=playlist_item>Tracks: "+ tracksqnt +"</div>"
