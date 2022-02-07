@@ -1,8 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const Seq = require('sequelize');
-const Usuario = require('../models/usuarios');
-const Playlist= require('../models/playlists');
 const bcrypt = require('bcryptjs');
 const { redirect } = require('express/lib/response');
 const passport = require('passport');
@@ -65,41 +62,47 @@ router.post('/cadastro', async function(req, res) {
     if(erros.length > 0) {
         res.render("ejs/cadastro", {erros: erros})
     }else {
-        Usuario.findOne({where: {email: req.body.email}}).then((usuario) => {
-            if(usuario) {
-                req.flash("error_msg", "Erro: Esse email já existe!")
-                res.redirect("/v1/cadastro")
-            }else {
-                var novoUsuario = Usuario.build({
-                    username: req.body.username,
-                    email: req.body.email,
-                    nome: req.body.nome,
-                    password: req.body.password
-                });
+        
+        var requestOptionsGET = {
+            url: 'http://localhost:8082/api/v1/usuario/' + req.body.username
+        }
+        
+        try {
+            request.get(requestOptionsGET, function(error, response, body) {
+                usuario = JSON.parse(body)
+                if(usuario) {
+                    req.flash("error_msg", "Erro: Esse usuario já existe!")
+                    res.redirect("/v1/cadastro")
+                } else {
+                    var sendBody = {
+                        username: req.body.username,
+                        email: req.body.email,
+                        nome: req.body.nome,
+                        password: req.body.password
+                    }
 
-                bcrypt.genSalt(10, (erro, salt) => {
-                    bcrypt.hash(novoUsuario.password, salt, (erro, hash) => {
-                        if(erro) {
-                            req.flash("error_msg", "Houve um erro ao salvar o usuário, Erro no hash")
-                            res.redirect("/v1/cadastro");
-                        }
-                        novoUsuario.password = hash
-
-                        novoUsuario.save().then(() => {
+                    var requestOptionsPOST = {
+                        url: 'http://localhost:8082/api/v1/cadastrousuario',
+                        headers: {'content-type' : 'application/x-www-form-urlencoded'},
+                        form: sendBody
+                    }
+                    request.post(requestOptionsPOST, function(error, response, body) {
+                        if (!error && response.statusCode === 200) {
                             req.flash("success_msg", "Usuario Cadastrado com sucesso")
                             res.redirect("/v1/login")
-                        }).catch((erro) => {
-                            console.log(erro)
+                        }
+                        else {
                             req.flash("error_msg", "Houve um erro ao salvar o usuário, erro no registro do DB")
                             res.redirect("/v1/cadastro");
-                        });
+                        }
                     })
-                });
-            }
-        }).catch((erro) => {
-            req.flash("error_msg", "Houve um erro interno com a database")
+                }
+            })
+        } catch(error) {
+            console.log(error)
+            req.flash("error_msg", "Houve um erro interno com a database. Tente novamente mais Tarde!")
             res.redirect("/v1/cadastro")
-        });
+        }
     }
 });
 
@@ -137,18 +140,26 @@ router.get('/conta', eUser, function(req,res) {
 })
 
 router.delete('/deletarconta', eUser, function(req,res) {
-    try {
-        Usuario.destroy({
-            where: {
-                id: req.user.id
-            }
-        })
-        req.logout()
-        res.redirect(303, '/v1/home')
-    } catch (error) {
-        console.log(error)
-        res.redirect(400, '/v1/conta')
+    var sendBody = {
+        id: req.user.id
     }
+
+    var requestOptions = {
+        url: 'http://localhost:8082/api/v1/deletarconta',
+        headers: {'content-type' : 'application/x-www-form-urlencoded'},
+        form: sendBody
+    }
+
+    request.delete(requestOptions, function(error, response, body) {
+        if (!error && response.statusCode === 200) {
+            req.logout()
+            res.redirect(303, '/v1/home')
+        }
+        else {
+            console.log(response.statusCode)
+            res.redirect(400, '/v1/conta')
+        }
+    })
 })
 
 router.put('/mudarsenha', eUser, function(req,res) {
@@ -165,9 +176,26 @@ router.put('/mudarsenha', eUser, function(req,res) {
                     }
                     newpassword = hash
 
-                    Usuario.update({password: newpassword}, {where: {id: req.user.id}})
+                    var sendBody = {
+                        id: req.user.id,
+                        newpassword: newpassword
+                    }
+                
+                    var requestOptions = {
+                        url: 'http://localhost:8082/api/v1/mudarsenha',
+                        headers: {'content-type' : 'application/x-www-form-urlencoded'},
+                        form: sendBody
+                    }
 
-                    res.redirect(303, '/v1/conta')
+                    request.put(requestOptions, function(error, response, body) {
+                        if (!error && response.statusCode === 200) {
+                            res.redirect(303, '/v1/conta')
+                        }
+                        else {
+                            console.log(response.statusCode)
+                            res.redirect(400, '/v1/conta')
+                        }
+                    })
                 })
             });
         }
@@ -190,81 +218,87 @@ router.post("/cadastrarplaylist", eUser, function(req, res) {
         req.flash("error_msg", "Selecione uma playlist para inserir!")
         res.redirect("/v1/cadastroplaylist")
         return;
-    } else if(Array.isArray(req.body.playlistGroup)) {
-        req.body.playlistGroup.forEach(function saveplaylists(data) {
-            playlist = data.split(",");
-            var novaPlaylist = Playlist.build({
-                appid: playlist[0],
-                totaltracks: playlist[2],
-                collaborative: playlist[5],
-                name: playlist[4],
-                owner: playlist[3],
-                insertedby: req.user.id,
-                imageURL: playlist[1],
-                appname: playlist[6]
-            });
-            novaPlaylist.save()
+    } else {
+        var sendBody = {
+            playlistGroup: req.body.playlistGroup,
+            userid: req.user.id
+        }
+    
+        var requestOptions = {
+            url: 'http://localhost:8082/api/v1/cadastrarplaylist',
+            headers: {'content-type' : 'application/x-www-form-urlencoded'},
+            form: sendBody
+        }
+
+        request.post(requestOptions, function(error, response, body) {
+            if (!error && response.statusCode === 200) {
+                req.flash('success_msg', "Playlists inseridas com successo!")
+            }
+            else {
+                console.log(response.statusCode)
+                req.flash('error_msg', "Erro ao se comunicar com o banco de dados!")
+            }
+            res.redirect("/v1/home")
         })
-        req.flash('success_msg', "Playlists inseridas com successo!")
     }
-    else {
-        playlist = req.body.playlistGroup.split(",");
-        var novaPlaylist = Playlist.build({
-            appid: playlist[0],
-            totaltracks: playlist[2],
-            name: playlist[4],
-            collaborative: playlist[5],
-            owner: playlist[3],
-            insertedby: req.user.id,
-            imageURL: playlist[1],
-            appname: playlist[6]
-        });
-        novaPlaylist.save()
-        req.flash('success_msg', "Playlist inserida com successo!")
-    }
-    res.redirect("/v1/home")
 })
 
 router.get("/playlists", async function(req, res) {
-    try {
-        playlists = await Playlist.findAll({
-            attributes: ['imageURL','name', 'totaltracks', 'owner', 'collaborative', 'appname', 'appid', 'insertedby'],
-            raw: true
-        })
-        
-        res.json(playlists)
-    } catch(err) {
-        console.log(err)
+    var requestOptions = {
+        url: 'http://localhost:8082/api/v1/playlists'
     }
+
+    request.get(requestOptions, function(error, response, body) {
+        if (!error && response.statusCode === 200) {
+            res.json(JSON.parse(body))
+        }
+        else {
+            console.log(response.statusCode)
+            console.log("Impossivel obter playlists, servidor desconectado!")
+        }
+    })
 });
 
 router.get("/playlists/:userid", async function(req, res) {
     userid = req.params.userid;
-    try {
-        playlists = await Playlist.findAll({
-            attributes: ['imageURL', 'name', 'totaltracks', 'owner', 'collaborative', 'appname', 'appid'],
-            where: {insertedby: userid},
-            include: [{
-                model: Usuario,
-                required: true
-            }]
-        })
-        res.json(playlists)
-    } catch(err) {
-        console.log(err)
+    
+    var requestOptions = {
+        url: 'http://localhost:8082/api/v1/playlists/' + userid
     }
+
+    request.get(requestOptions, function(error, response, body) {
+        if (!error && response.statusCode === 200) {
+            res.json(JSON.parse(body))
+        }
+        else {
+            console.log(response.statusCode)
+            console.log("Impossivel obter playlists, servidor desconectado!")
+        }
+    })
 });
 
 router.delete("/deletarplaylist", function(req,res) {
     try {
         if (req.isAuthenticated() && (req.user.eAdmin >= 1 || req.user.id == req.body.insertedby)) {
-            Playlist.destroy({
-                where: {
-                    appid: req.body.playlistid
+            var sendBody = {
+                playlistid: req.body.playlistid
+            }
+        
+            var requestOptions = {
+                url: 'http://localhost:8082/api/v1/deletarplaylist',
+                headers: {'content-type' : 'application/x-www-form-urlencoded'},
+                form: sendBody
+            }
+        
+            request.delete(requestOptions, function(error, response, body) {
+                if (!error && response.statusCode === 200) {
+                    res.redirect(200, '/v1/home')
+                }
+                else {
+                    console.log(response.statusCode)
+                    res.redirect(400, '/v1/conta')
                 }
             })
-            
-            res.redirect(200, '/v1/home')
         }
     } catch (error) {
         console.log(error)
@@ -273,19 +307,26 @@ router.delete("/deletarplaylist", function(req,res) {
 })
 
 router.delete("/deletarplaylistusuario", eUser, function(req,res) {
-    try {
-        Playlist.destroy({
-            where: {
-                appid: req.body.playlistid,
-                insertedby: req.user.id
-            }
-        })
-        
-        res.redirect(200, '/v1/home')
-    } catch (error) {
-        console.log(error)
-        res.redirect(400, '/v1/conta')
+    var sendBody = {
+        playlistid: req.body.playlistid,
+        userid: req.user.id
     }
+
+    var requestOptions = {
+        url: 'http://localhost:8082/api/v1/deletarplaylistusuario',
+        headers: {'content-type' : 'application/x-www-form-urlencoded'},
+        form: sendBody
+    }
+
+    request.delete(requestOptions, function(error, response, body) {
+        if (!error && response.statusCode === 200) {
+            res.redirect(200, '/v1/home')
+        }
+        else {
+            console.log(response.statusCode)
+            res.redirect(400, '/v1/conta')
+        }
+    })
 })
 
 // --------------------

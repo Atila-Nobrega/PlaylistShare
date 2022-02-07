@@ -43,20 +43,6 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-//Verifica as tabelas do banco de dados, cria elas se não existirem.
-(async () => {
-    const Usuario = require('./models/usuarios.js');
-    const Playlist = require('./models/playlists.js');
-    try {
-        await Usuario.sync();
-        await Playlist.sync();
-        console.log("Database Iniciada!");
-    } catch (error) {
-        console.log(error);
-    }
-})();
-//-------------------------------------------------------------------
-
 
 
 
@@ -69,5 +55,5 @@ app.get('/', function(req, res) {
 
 
 app.listen(port, function() {
-    console.log("servidor rodando na url http://localhost:"+port);
+    console.log("servidor APP rodando na url http://localhost:"+port);
 });
