@@ -228,9 +228,10 @@ router.post("/cadastrarplaylist", eUser, function(req, res) {
 router.get("/playlists", async function(req, res) {
     try {
         playlists = await Playlist.findAll({
-            attributes: ['imageURL','name', 'totaltracks', 'owner', 'collaborative', 'appname', 'appid'],
+            attributes: ['imageURL','name', 'totaltracks', 'owner', 'collaborative', 'appname', 'appid', 'insertedby'],
             raw: true
         })
+        
         res.json(playlists)
     } catch(err) {
         console.log(err)
@@ -241,7 +242,7 @@ router.get("/playlists/:userid", async function(req, res) {
     userid = req.params.userid;
     try {
         playlists = await Playlist.findAll({
-            attributes: ['imageURL', 'name', 'totaltracks', 'owner', 'collaborative', 'appname'],
+            attributes: ['imageURL', 'name', 'totaltracks', 'owner', 'collaborative', 'appname', 'appid'],
             where: {insertedby: userid},
             include: [{
                 model: Usuario,
@@ -254,11 +255,29 @@ router.get("/playlists/:userid", async function(req, res) {
     }
 });
 
-router.delete("/deletarplaylist", eAdmin, function(req,res) {
+router.delete("/deletarplaylist", function(req,res) {
+    try {
+        if (req.isAuthenticated() && (req.user.eAdmin >= 1 || req.user.id == req.body.insertedby)) {
+            Playlist.destroy({
+                where: {
+                    appid: req.body.playlistid
+                }
+            })
+            
+            res.redirect(200, '/v1/home')
+        }
+    } catch (error) {
+        console.log(error)
+        res.redirect(400, '/v1/conta')
+    }
+})
+
+router.delete("/deletarplaylistusuario", eUser, function(req,res) {
     try {
         Playlist.destroy({
             where: {
-                appid: req.body.playlistid
+                appid: req.body.playlistid,
+                insertedby: req.user.id
             }
         })
         

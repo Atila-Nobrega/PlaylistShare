@@ -20,10 +20,12 @@
     <% if(!user) { %>
         <script>
             localStorage.setItem("eAdmin", 0);
+            localStorage.setItem("userId", -1);
         </script>
     <% } else {%>
         <script>
             localStorage.setItem("eAdmin", "<%=user.eAdmin%>");
+            localStorage.setItem("userId", "<%=user.id%>");
         </script>
     <% }%>
 
