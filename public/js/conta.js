@@ -148,6 +148,8 @@ async function deletePlaylist(event) {
             return response;
         })
         .then(() => {
+            const delay = ms => new Promise(res => setTimeout(res, ms));
+            delay(500);
             location.reload()
         })
     } catch (error) {
