@@ -1,6 +1,13 @@
 /* Conjunto de variáveis com as cores de alto padrão */
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
 
 :root {
+    --color-1: #67be9b;
+    --color-2: #95d0b8;
+    --color-3: #fcfcd7;
+    --color-4: #f1db42;
+    --color-5: #f04158;
+
     --main-primary-color: #242424;
     --main-header-color: #009e73;
     --main-primary-bg-color: #0072b2;
@@ -22,6 +29,7 @@ body {
     margin: 0px;
     overflow-x: hidden;
     font-size: calc(var(--font-regular-size));
+    font-family: 'Josefin Sans', sans-serif;
 }
 
 h1 {
