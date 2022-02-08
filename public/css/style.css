@@ -41,17 +41,17 @@ h1 {
 }
 
 h2 {
-    font-size: 30em;
+    font-size: 35em;
     color: var(--main-white-text-color);
 }
 
 h3 {
-    font-size: 20em;
+    font-size: 25em;
     color: var(--main-white-text-color);
 }
 
 h4 {
-    font-size: 15em;
+    font-size: 20em;
     color: var(--main-white-text-color);
 }
 
@@ -99,8 +99,7 @@ header {
 }
 
 .fs-5 {
-    color: whitesmoke;
-    font-size: 1.25rem;
+    font-size: 20em;
 }
 
 .fs-6 {
