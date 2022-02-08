@@ -41,17 +41,17 @@ h1 {
 }
 
 h2 {
-    font-size: 35em;
+    font-size: 30em;
     color: var(--main-white-text-color);
 }
 
 h3 {
-    font-size: 25em;
+    font-size: 20em;
     color: var(--main-white-text-color);
 }
 
 h4 {
-    font-size: 20em;
+    font-size: 15em;
     color: var(--main-white-text-color);
 }
 
@@ -99,7 +99,8 @@ header {
 }
 
 .fs-5 {
-    font-size: 20em;
+    color: whitesmoke;
+    font-size: 1.25rem;
 }
 
 .fs-6 {
@@ -295,7 +296,7 @@ header {
 }
 
 .header_menu_item {
-    font-size: 20em;
+    font-size: 16em;
     font-weight: 600;
     margin: -10px;
     padding: 10px;
