@@ -1,6 +1,6 @@
 async function listarPlaylists() {
     try {
-        await fetch('http://localhost:8081/v1/playlists')
+        await fetch('http://fechine.ddns.net:8081/v1/playlists')
         .then(response => {
             response.json().then((data) => {
                 data.forEach(function selectplaylists(playlist) {
@@ -117,7 +117,7 @@ async function deletePlaylist() {
     }
 
     try {
-        await fetch('http://localhost:8081/v1/deletarplaylist', deleteMethod)
+        await fetch('http://fechine.ddns.net:8081/v1/deletarplaylist', deleteMethod)
         .then(function(response) {
             if (!response.ok) {
                 throw Error(response.statusText);

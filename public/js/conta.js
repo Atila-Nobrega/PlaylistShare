@@ -2,7 +2,7 @@ async function encontrarPlaylistsUsuario() {
     try {
         var userid = localStorage.getItem('userid');
 
-        await fetch('http://localhost:8081/v1/playlists/' + userid)
+        await fetch('http://fechine.ddns.net:8081/v1/playlists/' + userid)
         .then(response => {
             response.json().then((data) => {
                 data.forEach(function selectplaylists(playlist) {
@@ -58,7 +58,7 @@ async function deletarUsuario() {
     }
 
     try {
-        await fetch('http://localhost:8081/v1/deletarconta', deleteMethod)
+        await fetch('http://fechine.ddns.net:8081/v1/deletarconta', deleteMethod)
         .then(function(response) {
             if (!response.ok) {
                 throw Error(response.statusText);
@@ -66,10 +66,10 @@ async function deletarUsuario() {
             return response;
         })
         .then(() => {
-            location.replace("http://localhost:8081/v1/home/sucessdelete")
+            location.replace("http://fechine.ddns.net:8081/v1/home/sucessdelete")
         })
     } catch (error) {
-        location.replace("http://localhost:8081/v1/conta/fail")
+        location.replace("http://fechine.ddns.net:8081/v1/conta/fail")
         console.log(error)
     }
 }
@@ -110,7 +110,7 @@ async function mudarSenhaUsuario() {
         }
     
         try {
-            await fetch('http://localhost:8081/v1/mudarsenha', putMethod)
+            await fetch('http://fechine.ddns.net:8081/v1/mudarsenha', putMethod)
             .then(function(response) {
                 if (!response.ok) {
                     throw Error(response.statusText);
@@ -118,14 +118,14 @@ async function mudarSenhaUsuario() {
                 return response;
             })
             .then(() => {
-                location.replace("http://localhost:8081/v1/conta/success")
+                location.replace("http://fechine.ddns.net:8081/v1/conta/success")
             })
         } catch (error) {
-            location.replace("http://localhost:8081/v1/conta/fail")
+            location.replace("http://fechine.ddns.net:8081/v1/conta/fail")
             console.log(error)
         }
     } else {
-        location.replace("http://localhost:8081/v1/conta/fail")
+        location.replace("http://fechine.ddns.net:8081/v1/conta/fail")
     }
 
 }
@@ -140,7 +140,7 @@ async function deletePlaylist(event) {
     }
 
     try {
-        await fetch('http://localhost:8081/v1/deletarplaylistusuario', deleteMethod)
+        await fetch('http://fechine.ddns.net:8081/v1/deletarplaylistusuario', deleteMethod)
         .then(function(response) {
             if (!response.ok) {
                 throw Error(response.statusText);
